@@ -1,3 +1,4 @@
+//https://github.com/marbles4lifw/midterm19 
 // Author: Gordon Griesel 
 // Date: April 7, 2019
 // Purpose: Framework for coding exam
@@ -567,6 +568,7 @@ const Flt arr[] = {
 int main(int argc, char *argv[])
 {
 #ifdef UNIT_TEST
+    int error = 0;
     double tol_val;    
     if (argc > 1) 
         tol_val = atof(argv[1]);
@@ -598,6 +600,7 @@ int main(int argc, char *argv[])
     do {
         Flt ret = vec_length(v);
         if (argc > 1 && abs(ret - expected[i]) >  tol_val) {
+            error++;
             printf("%3i  %8.5lf  %8.5lf  %10.5lf  %10.5lf <-- error\n", i+1, v[0], v[1], ret, expected[i]);
         }
         else {
@@ -617,8 +620,13 @@ int main(int argc, char *argv[])
     } while (!(v[0]==0.0 && v[1]==0.0));
 #endif
     //
+#ifdef UNIT_TEST
+    printf("\nUnit test complete.\n\n");
+    printf("Errors found: %d\n\n", error);
+#else
     printf("\nProgram complete.\n\n");
     return 0;
+#endif
 }
 
 Flt vec_length(Vec v)
